@@ -18,20 +18,19 @@ type Config struct {
 	HTTPServer `yaml:"http_server" env-required:"true"`
 }
 
-
 func Load() *Config {
 	var configPath string
-
-	configPath = os.Getenv("CONFIG_PATH")
+    configPath = os.Getenv("CONFIG_PATH")
 
 	if configPath == "" {
-		configPath = "config/config.yaml"
+        configPath = "config/config.yaml"
 	}
 
 	var cfg Config
-	err := cleanenv.ReadConfig(configPath, &cfg)
+
+	err := cleanenv.ReadConfig(configPath,&cfg)
 	if err != nil {
-		log.Fatalf("can not read the config file: %s", err.Error())
+       log.Fatal("config file is not valid")
 	}
 
 	return &cfg
